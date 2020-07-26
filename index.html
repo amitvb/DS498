@@ -71,12 +71,22 @@ yScale.domain([(0), d3.max(slices, function(c) {
     ]);
 
 //-----------------------------AXES------------------------------//
+const yaxis = d3.axisLeft().scale(yScale); 
+const xaxis = d3.axisBottom().scale(xScale);
 
 //----------------------------LINES------------------------------//
 
 //-------------------------2. DRAWING----------------------------//
 
 //-----------------------------AXES------------------------------//
+svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xaxis);
+
+svg.append("g")
+    .attr("class", "axis")
+    .call(yaxis);
 
 //----------------------------LINES------------------------------//
 
