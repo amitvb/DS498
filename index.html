@@ -7,9 +7,9 @@
     window.d3 = null
 </script>
 <script src="https://d3js.org/d3.v3.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-<script src="https://d3js.org/topojson.v1.min.js"></script>
-<script src="https://datamaps.github.io/scripts/0.4.4/datamaps.all.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://datamaps.github.io/scripts/0.4.4/datamaps.all.min.js"></script>
 
 
 <table style="padding-left:50px; padding-right:50px; padding-bottom:300px;">
@@ -196,6 +196,17 @@
                     .attr("fill", function (d) {
                         return myColor(d.Ethnicity)
                     })
+
+                svg2.append("foreignObject")
+                    .data(deaths_per100000_arr.filter(function(d){return d.Ethnicity == "black";}))
+                    .attr("width", 120)
+                    .attr("height", 100)
+                    .attr("x",(d, i) => x2(0) + 250)
+                    .attr("y",(d, i) => y(d.Ethnicity)+50)
+                    .append("xhtml:body")
+                    .style("font", "9px 'Helvetica Neue'")
+                    .html((d)=> "<h3>High Mortality Rate</h3><p>Minorities have seen the highest mortality rates. African Americans ("+d.Value+"%)");
+
             });
 
 
@@ -262,20 +273,16 @@
                     .attr("fill", function (d) {
                         return myColor(d.Ethnicity)
                     })
-                    .append("text")
-                    .text(function (d) {
-                        return "temp";//d.key;
-                    })
-                    .attr("text-anchor", "middle")
-                    .attr("x", function (d, i) {
-                        return 100;
-                    })
-                    .attr("y", function (d) {
-                        return 100;
-                    })
-                    .attr("font-family", "sans-serif")
-                    .attr("font-size", "11px")
-                    .attr("fill", "white");
+
+                svg.append("foreignObject")
+                    .data(deathsarr.filter(function(d){return d.Ethnicity == "white";}))
+                    .attr("width", 100)
+                    .attr("height", 100)
+                    .attr("x",(d, i) => x(0) + 250)
+                    .attr("y",(d, i) => y(d.Ethnicity) - 100)
+                    .append("xhtml:body")
+                    .style("font", "9px 'Helvetica Neue'")
+                    .html((d)=> "<h3>High Death Count</h3><p>Caucasian community has seen the highest number of fatalities ("+d.Value+")");
 
             })
 
